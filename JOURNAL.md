@@ -21,4 +21,36 @@
 **Reproduction summary:**
 [Triggered a GET /health request and observed an AttributeError caused by a missing redis_host attribute on the Settings object. Verified via grep redis_host core/config.py that the configuration model lacks this field definition.]
 
-**PLAN.md link:** [https://github.com/mpuntus-css/pathreview/blob/fix/155-health-endpoint-attribute-error/PLAN.md]
+**PLAN.md link:** [link to PLAN.md in your fork]
+
+
+## Week 9 — Solution building & PR submission
+
+### Check-in 1 (mid-week)
+
+**Current progress:**
+[Updated api/routes/health.py to use settings.redis_url for the Redis health probe instead of non-existent attributes (redis_host and redis_port). All sub-tasks related to route updates and refactoring have been completed.]
+
+**Next steps:**
+[Add regression unit tests for GET /health to verify from_url instantiation and ensure pytest tests/unit passes completely.]
+
+**Blockers:**
+[]
+
+---
+
+### Check-in 2 (end of week)
+
+**PR link:** [link to your submitted pull request]
+
+**Branch:** [fix/155-health-endpoint-attribute-error]
+
+**What you built:**
+[Refactored the Redis health probe in api/routes/health.py to utilize settings.redis_url instead of accessing non-existent redis_host and redis_port attributes on the Settings model. This eliminates the runtime AttributeError and aligns the endpoint directly with the existing configuration schema in core/config.py.]
+
+**Tests added or updated:**
+[tests/unit/test_health.py — Added a unit test to verify that GET /health successfully invokes redis.Redis.from_url(...) and returns a healthy response status when Redis answers the ping() check.]
+
+**Self-review confirmation:** [X] make check passes  [ ] make test-unit passes
+
+**Draft PR feedback received from:** [none]
