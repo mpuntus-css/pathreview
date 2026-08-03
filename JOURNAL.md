@@ -21,7 +21,7 @@
 **Reproduction summary:**
 [Triggered a GET /health request and observed an AttributeError caused by a missing redis_host attribute on the Settings object. Verified via grep redis_host core/config.py that the configuration model lacks this field definition.]
 
-**PLAN.md link:** [link to PLAN.md in your fork]
+**PLAN.md link:** [https://github.com/mpuntus-css/pathreview/blob/main/PLAN.md]
 
 
 ## Week 9 — Solution building & PR submission
@@ -41,7 +41,7 @@
 
 ### Check-in 2 (end of week)
 
-**PR link:** [link to your submitted pull request]
+**PR link:** [https://github.com/mpuntus-css/pathreview/pull/1]
 
 **Branch:** [fix/155-health-endpoint-attribute-error]
 
