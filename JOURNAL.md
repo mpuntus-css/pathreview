@@ -54,3 +54,35 @@
 **Self-review confirmation:** [X] make check passes  [ ] make test-unit passes
 
 **Draft PR feedback received from:** [none]
+
+
+## Week 10 — Iteration & reflection
+
+### Reviewer feedback
+
+**Feedback received:** [ ] Yes  [X] No — still awaiting review
+
+**Summary of feedback:**
+[No review came in.]
+
+**How you responded:**
+[]
+
+---
+
+### Reflection
+
+**What was harder than you expected?**
+[Navigating the local environment setup on Windows without "make" installed initially slowed down me at first. While the fix itself was easy to fix once identified, reproducing the bug required spinning up the full Docker container to ensure PostgreSQL and Redis were running correctly. Tracing how Pydantic loaded environment variables into settings.redis_url vs. expecting individual connection flags also required stepping through core/config.py to ensure I wasn't breaking other services reliant on the configuration schema.]
+
+**What did you learn about working in a large codebase?**
+[When working in an existing codebase, the optimal fix is often about alignment rather than addition. My initial assumption was that I needed to add redis_host and redis_port to the Settings model. However, inspecting core/config.py revealed that the project had already standardized on single URL connection strings (redis_url). Adapting the route to match the established patterns of the codebase was far cleaner than modifying a shared configuration schema used by other components.]
+
+**How did AI tools help — and where did they fall short?**
+[AI was extremely helpful for quickly mapping out local workaround commands for the missing make environment on Windows and generating precise conventional commit messages and PR templates. However, it fell short when diagnosing specific environment execution failures (like asyncpg timeout errors caused by Docker containers not running locally) and initial issue analysis, where standard suggestions resulted in mutating the configuration schema rather than using the existing redis_url pattern.]
+
+**What would you do differently if you started over?**
+[I would inspect the existing configuration models (core/config.py) before drafting the initial PLAN.md. I initially planned to add missing fields to Settings, but thoroughly checking on how configuration was handled across the rest of the application would have immediately highlighted settings.redis_url as the preferred pattern, saving time during the solution mapping phase.]
+
+**What are you most proud of from this module?**
+[I am most proud of writing a clean, focused regression test in tests/unit/test_health.py that thoroughly mocks connection behavior and verifies both healthy and fallback error states for the /health endpoint.]
